@@ -9,36 +9,37 @@ of thought and have to dig out the reference manual. Which got me thinking:
 <i>Why can't IDA just give me the full documentation?</i>
 
 Enter IdaRef:
-![](https://raw.githubusercontent.com/nologic/idaref/master/screenshot/idaref.png)
+![](./screenshot/idaref.png)
 The plugin will monitor the location for your cursor (ScreenEA) and display the full
-documentation of the instruction. At the moment it only supports x86-64, however
-adding support for other architectures is relatively easy.
+documentation of the instruction. At the moment it only supports x86-64 and ARM, 
+however adding support for other architectures is relatively easy.
 
 Usage
 -----
-Simply checkout or download the repository and make sure that the sqlite database
-file is in the same directory as the 'idaref' python script.
+Simply checkout or download the repository and install it to your IDA plugins directory:
 
-Run 'python arm.py' to set up the ARM database or x86-64.py for x86-64.
+    idaref.py -> /Applications/IDA Pro 6.8/idaq.app/Contents/MacOS/plugins/idaref.py
+    arm.sql -> /Applications/IDA Pro 6.8/idaq.app/Contents/MacOS/plugins/arm.sql
+    x86-64.sql -> /Applications/IDA Pro 6.8/idaq.app/Contents/MacOS/plugins/x86-64.sql
 
-Execute the python script via File->Script File... or ALT+F7. This will open a new
-view in your IDA workspace. In this view is where the text will be displayed. Now
-click on the instruction you're curious about and within a second the documentation
-will populate the view.
+You can also use the installer.sh file but you'll need to open it and edit the IDA path 
+if you're not using Mac OS and IDA 6.8.
 
-Once loaded, the plugin can be turned off by closing the tab window. To control the
-output right-click on the tab window to get a menu:
+![](./screenshot/idaref_start.png)
+
+Once loaded, the plugin can be turned ON by going to Edit/Start IdaRef menu option. To 
+control the output right-click on the tab window to get a menu:
 
 * Update View - Load documentation for currectly selected instruction.
 * Lookup Instruction - Manual load documentation, you'll be prompted for the instruction.
 * Toggle Auto-refresh - Turn on/off auto loading of documentation and rely on the first two options.
 
-![picture](https://raw.githubusercontent.com/nologic/idaref/master/screenshot/idaref_menu.png)
+![](./screenshot/idaref_menu.png)
     
 Internals
 ---------
 Upon loading the script will look for SQlite databases in the same directory as the 
-itself. The naming convention for the database files is [arch name].sqlite. The 
+itself. The naming convention for the database files is [arch name].sql. The 
 [arch name] will be presented to the user as choice.
 
 The database has a table called 'instructions' and two columns called 'mnem' and
